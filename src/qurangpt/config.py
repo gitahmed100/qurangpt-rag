@@ -10,7 +10,10 @@ PROCESSED = ROOT / "data" / "processed"
 CHUNKS = ROOT / "data" / "chunks"
 INDEX = ROOT / "data" / "index"
 
+# The SAME model must be used when building the index (Colab) and when answering questions.
 EMBED_MODEL = os.getenv("EMBED_MODEL", "intfloat/multilingual-e5-base")
 LLM_MODEL = os.getenv("LLM_MODEL", "claude-sonnet-5-5")
+
 TOP_K = 5
-MIN_SCORE = 0.78   # below this top score -> abstain (tune on your eval set)
+MAX_PER_BOOK = 2      # diversity: at most this many passages from one book in the final top-k
+MIN_SCORE = 0.0       # abstain threshold; 0 = disabled. Calibrate on your eval set before raising it.
