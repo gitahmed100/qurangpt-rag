@@ -1,0 +1,17 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>QuranGPT</title>
+<style>body{font-family:system-ui,"Noto Naskh Arabic",serif;max-width:760px;margin:2rem auto;padding:0 1rem}
+textarea{width:100%;font-size:1.1rem;padding:.6rem}button{padding:.5rem 1.2rem;font-size:1rem}
+.src{border:1px solid #ccc;border-radius:8px;padding:.6rem;margin:.6rem 0}.src small{color:#666}
+#ans{white-space:pre-wrap;line-height:2;margin-top:1rem}</style></head><body>
+<h1>QuranGPT</h1><p>مساعد دراسي للقرآن والتفسير — ليس مرجعًا للفتوى.</p>
+<textarea id="q" rows="3" placeholder="اكتب سؤالك هنا"></textarea><br><button onclick="ask()">اسأل</button>
+<div id="ans"></div><div id="srcs"></div>
+<script>
+async function ask(){const a=document.getElementById('ans'),s=document.getElementById('srcs');a.textContent='...';s.innerHTML='';
+const r=await fetch('/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:document.getElementById('q').value})});
+const d=await r.json();a.textContent=d.answer;
+d.sources.forEach(x=>{const e=document.createElement('div');e.className='src';
+const h=document.createElement('b');h.textContent=`[${x.n}] ${x.book} — ${x.surah}:${x.ayah}`;
+const t=document.createElement('p');t.textContent=x.text;e.append(h,t);s.append(e)})}
+</script></body></html>

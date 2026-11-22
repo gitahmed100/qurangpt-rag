@@ -1,0 +1,9 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {"name": "API (uvicorn)", "type": "debugpy", "request": "launch", "module": "uvicorn",
+     "args": ["qurangpt.api.main:app", "--reload"], "env": {"PYTHONPATH": "${workspaceFolder}/src"}},
+    {"name": "Chunk tafsir", "type": "debugpy", "request": "launch",
+     "module": "qurangpt.ingestion.chunk_tafsir", "env": {"PYTHONPATH": "${workspaceFolder}/src"}}
+  ]
+}
